@@ -11,8 +11,16 @@ $.fn.ready = function (callback) {
 };
 
 Spree.ready = function(callback) {
-  if (Turbolinks.supported) {
-    jQuery(document).on('turbolinks:load', function() {
+  var eventName;
+  
+  if (supportsTurbolinks())
+    eventName = 'turbolinks:load';
+  else if (supportsTurbo()) {
+    eventName = 'turbo:load';
+  }
+  
+  if (supportsTurbolinks() || supportsTurbo()) {
+    jQuery(document).on(eventName, function() {
       callback(jQuery);
     });
   } else {
