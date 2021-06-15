@@ -13,9 +13,9 @@ function supportsTurbo() {
 Spree.ready = function(callback) {
   var eventName;
   
-  if supportsTurbolinks() 
+  if(supportsTurbolinks())
     eventName = 'turbolinks:load';
-  else if supportsTurbo() {
+  else if (supportsTurbo()) {
     eventName = 'turbo:load';
   }
   
