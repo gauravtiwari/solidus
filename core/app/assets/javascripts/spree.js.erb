@@ -2,9 +2,25 @@
 
 window.Spree = {};
 
+function supportsTurbolinks() {
+  return typeof Turbolinks !== 'undefined' && Turbolinks.supported;
+}
+
+function supportsTurbo() {
+  return typeof Turbo !== 'undefined';
+}
+
 Spree.ready = function(callback) {
-  if (typeof Turbolinks !== 'undefined' && Turbolinks.supported) {
-    jQuery(document).on('turbolinks:load', function() {
+  var eventName
+  
+  if supportsTurbolinks() 
+    eventName = 'turbolinks:load'
+  else if supportsTurbo() {
+    eventName = 'turbo:load'
+  }
+  
+  if (supportsTurbolinks() || supportsTurbo()) {
+    jQuery(document).on(eventName, function() {
       callback(jQuery);
     });
   } else {
